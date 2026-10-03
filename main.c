@@ -34,5 +34,7 @@ void x0choice()
             case '0':
             printf("Since player 1 has chosen 0, player 2 will go with X");
             break;
+            default :
+            printf("Invalid choice! enter X or 0");
         }
 }
