@@ -7,9 +7,12 @@ void instructions();
 void x0choice();
 int wincheck(board[3][3]);
 int fullcheck(board[3][3]);
+void drawboard(board[3][3]);
+void play(board[3][3]);
 int main()
 {
-    
+    char again;
+    do{
     printf("Welcome to Tic-Tac-Toe");
     printf("Enter the name of player 1: ");
     gets(name1);
@@ -18,6 +21,11 @@ int main()
     instructions();
     printf("So ready to begin the game? Lessgooo!");
     x0choice();
+    drawboard();
+    play();
+        printf("Would you like to play once more? type y for yes");
+        scanf("%c",&again);
+    }while(again=='y'||again=='Y');
 }
 void instructions()
 {
@@ -44,7 +52,7 @@ void x0choice()
             printf("Invalid choice! enter X or 0");
         }
 }
-void board(board[3][3])
+void drawboard(board[3][3])
 {
     int i,j,k=1;
     for (i=0;i<3;i++)
@@ -93,22 +101,55 @@ int fullcheck(board[3][3])
         else return 1;
     }
 }
-void play()
+void play(board[3][3])
 {
-    int f=0,turn=0,i,pos;
-        while(f=0)
+    int turn=0,i,pos=0,row,col;
+    row=(pos-1)/3;
+    col=(pos-1)%3;
+        while(fullcheck(board[3][3])==0)
         {
             if(turn%2==0)
                 {
                     printf("%s (%c), its your turn! choose the position to place your %c",name1 , c1);
                     scanf("%d",&pos);
+                    if((pos<='9' || pos>='1')&& board[pos]!=c1 && board[pos]!=c2)
+                    {
+                        board[row][col]=c1;
+                        drawboard(board[3][3]);
+                        if(wincheck(board[3][3]))
+                        {
+                            printf("CONGRATSSS %s!!! you have won the game!",name1);
+                            break;
+                        }
+                        if(fullcheck(board[3][3]))
+                        {
+                            printf("Its a draw");
+                            break;
+                        }
+                    else printf("Invalid choice");
                 }
             else
                 {
                     printf("%s (%c), its your turn! choose the position to place your %c",name2 , c2);
                     scanf("%d",&pos);
+                      if((pos<='9' || pos>='1')&& board[pos]!=c1 && board[pos]!=c2)
+                    {
+                        board[row][col]=c2;
+                        drawboard(board[3][3]);
+                        if(wincheck(board[3][3]))
+                        {
+                            printf("CONGRATSSS %s!!! you have won the game!",name2);
+                            break;
+                        }
+                        if(fullcheck(board[3][3]))
+                        {
+                            printf("Its a draw");
+                            break;
+                        }
+                    }
+                    else printf("Invalid choice");
                 }
-            t++;
+            turn++;
         }
 }
     
